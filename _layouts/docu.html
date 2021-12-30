@@ -163,13 +163,19 @@
 		<div class="wrap{% if page.title %} {{ page.title | downcase | remove: " " }}{% endif %}">
 			<div class="headlinebar">{{ page.title }}</div>
 			<div id="main_content_wrap">
+				{% assign basename = page.path | replace: "docs/", "" %}
+				{% assign candidate_pages = "" | split: ','  %}
+				{% for site_page in site.pages %}
+					{% if site_page.name == page.name %}
+						{% assign candidate_pages = candidate_pages | push: site_page.path %}
+					{% endif %}
+				{% endfor %}
 				{% for item in site.data.versions %}
 					{{ item.version }}
-					{% assign basename = page.path | replace: "docs/", "" %}
 					{% assign filename = "docs/archive/" | append: item.version | append: "/" | append: basename %}
 					{% assign exists = "false" %}
-					{% for page in site.pages %}
-						{% if page.path == filename %}
+					{% for page_name in candidate_pages %}
+						{% if page_name == filename %}
 							{% assign exists = true %}
 						{% endif %}
 					{% endfor %}
