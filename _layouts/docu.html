@@ -163,6 +163,14 @@
 		<div class="wrap{% if page.title %} {{ page.title | downcase | remove: " " }}{% endif %}">
 			<div class="headlinebar">{{ page.title }}</div>
 			<div id="main_content_wrap">
+				{% for item in site.data.versions %}
+				{% assign basename = page.path | replace: "docs/", "" %}
+				{% assign filename = "docs/archive/" | append: item.version | append: "/" | append: basename %}
+				VERSION: {{ item.version }} <br/>
+				FILENAME: {{ filename }}  <br/>
+				{% capture exists %}{% file_exists {{ filename }} %}{% endcapture %}
+				EXISTS: {{ exists }} <br/>
+				{% endfor %}
 
 				{% include anchor_headings.html html=content %}
 
