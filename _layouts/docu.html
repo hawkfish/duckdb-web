@@ -164,12 +164,16 @@
 			<div class="headlinebar">{{ page.title }}</div>
 			<div id="main_content_wrap">
 				{% for item in site.data.versions %}
-				{% assign basename = page.path | replace: "docs/", "" %}
-				{% assign filename = "docs/archive/" | append: item.version | append: "/" | append: basename %}
-				VERSION: {{ item.version }} <br/>
-				FILENAME: {{ filename }}  <br/>
-				{% capture exists %}{% file_exists {{ filename }} %}{% endcapture %}
-				EXISTS: {{ exists }} <br/>
+					{{ item.version }}
+					{% assign basename = page.path | replace: "docs/", "" %}
+					{% assign filename = "docs/archive/" | append: item.version | append: "/" | append: basename %}
+					{% assign exists = "false" %}
+					{% for page in site.pages %}
+						{% if page.path == filename %}
+							{% assign exists = true %}
+						{% endif %}
+					{% endfor %}
+					{{ exists }}
 				{% endfor %}
 
 				{% include anchor_headings.html html=content %}
