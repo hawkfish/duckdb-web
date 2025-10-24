@@ -185,7 +185,7 @@ qualify v <> m - 1704067200000;
 
 If the interpolation is correct, then we will have no output, no matter the scale.
 We can check this with the final `result` clause,
-which ash the same syntax as a unit test:
+which has the same syntax as a unit test:
 
 ```text
 result III
